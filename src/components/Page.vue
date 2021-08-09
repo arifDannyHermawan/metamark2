@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-    <style scoped>
+<style scoped>
 .page {
   width: 100%;
   padding: 2rem;
