@@ -1,26 +1,69 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <Notebook
+      @change-page="changePage"
+      @new-page="newPage"
+      :pages="pages"
+      :activePage="index"
+    />
+    <Page
+      @save-page="savePage"
+      @delete-page="deletePage"
+      :page="pages[index]"
+    />
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+    <script>
+import Notebook from "./components/Notebook";
+import Page from "./components/Page";
 
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    HelloWorld
-  }
-}
+    Notebook,
+    Page,
+  },
+  data: () => ({
+    pages: [],
+    index: 0,
+  }),
+  methods: {
+    newPage() {
+      this.pages.push({
+        title: "",
+        content: "",
+      });
+      this.index = this.pages.length - 1;
+    },
+    changePage(index) {
+      this.index = index;
+    },
+    savePage() {
+      // nothing as of yet
+    },
+    deletePage() {
+      this.pages.splice(this.index, 1);
+      this.index = Math.max(this.index - 1, 0);
+    },
+  },
+};
 </script>
 
-<style>
+    <style>
+html,
+body,
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
 }
 </style>
